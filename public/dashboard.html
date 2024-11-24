@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Project Tracker</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+<body>
+    <header>
+        <div class="project-input-section">
+            <input id="project-name-input" type="text" placeholder="Enter project name" />
+            <button id="add-project-button" class="btn btn-primary">Add</button>
+        </div>
+    </header>
+    <main>
+        <div id="global-timer" class="timer-container">
+            <div  id="global-timer-display">00:00:00</div>
+        </div>
+        <div id="projects-container" class="projects-container">
+            <!-- Projects will be dynamically added here -->
+        </div>
+    </main>
+    <script src="scripts/dashboard.js"></script>
+</body>
+</html>
