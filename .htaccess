@@ -7,6 +7,3 @@ RewriteRule ^ - [L]
 
 # Перенаправлення на index.html для всіх інших запитів
 RewriteRule ^ index.html [L]
-
-#RewriteEngine On
-#RewriteRule ^$ public/index.html [L]

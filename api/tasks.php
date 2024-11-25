@@ -6,7 +6,6 @@ header("Content-Type: application/json");
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'GET') {
-    // Отримання завдань для конкретного проекту
     $projectId = $_GET['projectId'] ?? null;
 
     if ($projectId) {
@@ -24,7 +23,6 @@ if ($method === 'GET') {
         echo json_encode(['error' => 'Missing projectId parameter']);
     }
 } elseif ($method === 'POST') {
-    // Додавання нового завдання
     $data = json_decode(file_get_contents("php://input"), true);
     $projectId = $data['projectId'] ?? null;
     $taskName = $data['taskName'] ?? null;
@@ -44,7 +42,6 @@ if ($method === 'GET') {
         echo json_encode(['error' => 'Invalid input data']);
     }
 } elseif ($method === 'DELETE') {
-    // Видалення завдання
     $data = json_decode(file_get_contents("php://input"), true);
     $taskId = $data['taskId'] ?? null;
 
@@ -67,7 +64,6 @@ if ($method === 'GET') {
         echo json_encode(['error' => 'Invalid input data']);
     }
 } else {
-    // Непідтримуваний метод
     http_response_code(405);
     echo json_encode(['error' => 'Method not allowed']);
 }

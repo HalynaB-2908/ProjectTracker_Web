@@ -56,7 +56,7 @@ function handleLoginForm() {
             });
             const result = await response.json();
             if (result.success) {
-                localStorage.setItem('userId', result.userId); // Збереження userId
+                localStorage.setItem('userId', result.userId); 
                 alert('Login successful!');
                 window.location.href = 'dashboard.html';
             } else {
@@ -98,7 +98,7 @@ function handleRegisterForm() {
             });
             const result = await response.json();
             if (result.success) {
-                localStorage.setItem('userId', result.userId); // Збереження userId
+                localStorage.setItem('userId', result.userId); 
                 alert('Registration successful!');
                 window.location.href = 'dashboard.html';
             } else {

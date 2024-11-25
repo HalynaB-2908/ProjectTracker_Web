@@ -4,18 +4,16 @@ const addProjectButton = document.getElementById('add-project-button');
 const projectNameInput = document.getElementById('project-name-input');
 const globalTimerDisplay = document.getElementById('global-timer-display');
 
-let timerInterval = null; // Глобальний інтервал для таймера
-let activeProjectId = null; // ID активного проекту для таймера
-let elapsedSeconds = 0; // Час у секундах
+let timerInterval = null; 
+let activeProjectId = null; 
+let elapsedSeconds = 0; 
 
-// Отримання userId з localStorage
 const userId = localStorage.getItem('userId');
 if (!userId) {
     alert('You are not logged in. Redirecting to login page.');
     window.location.href = 'index.html';
 }
 
-// Завантаження проектів після завантаження сторінки
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const response = await fetch(`${API_BASE_URL}/projects.php?userId=${userId}`);
@@ -39,7 +37,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// Додавання нового проекту
 addProjectButton.addEventListener('click', async () => {
     const projectName = projectNameInput.value.trim();
     if (!projectName) {
@@ -72,7 +69,6 @@ addProjectButton.addEventListener('click', async () => {
     }
 });
 
-// Завантаження завдань для проекту
 async function loadTasksForProject(projectId, projectElement) {
     try {
         const response = await fetch(`${API_BASE_URL}/tasks.php?projectId=${projectId}`);
@@ -87,7 +83,6 @@ async function loadTasksForProject(projectId, projectElement) {
                 taskSelector.appendChild(option);
             });
 
-            // Вибір першого таска як активного
             taskSelector.value = tasks[0].TaskID;
         } else {
             console.error('No tasks found or failed to load tasks:', tasks.error || 'Unknown error');
@@ -97,8 +92,6 @@ async function loadTasksForProject(projectId, projectElement) {
     }
 }
 
-
-// Додавання картки проекту
 function addProjectCard({ projectId, projectName, isCompleted, totalTime }) {
     const projectElement = document.createElement('div');
     projectElement.className = 'project';
@@ -128,8 +121,6 @@ function addProjectCard({ projectId, projectName, isCompleted, totalTime }) {
     return projectElement;
 }
 
-
-// Ініціалізація проекту
 function initializeProject({ projectElement, projectId, totalTime, isCompleted }) {
     const deleteButton = projectElement.querySelector('.delete-project');
     const addTaskButton = projectElement.querySelector('.add-task');
@@ -189,7 +180,7 @@ function initializeProject({ projectElement, projectId, totalTime, isCompleted }
 
     markCompletedCheckbox.addEventListener('change', async () => {
         const isChecked = markCompletedCheckbox.checked;
-        const label = markCompletedCheckbox.parentNode; // Безпечний спосіб вибрати батька
+        const label = markCompletedCheckbox.parentNode; 
     
         try {
             const response = await fetch(`${API_BASE_URL}/projects.php`, {
@@ -208,7 +199,7 @@ function initializeProject({ projectElement, projectId, totalTime, isCompleted }
                         ? `<input type="checkbox" class="mark-completed" checked /> Finished`
                         : `<input type="checkbox" class="mark-completed" /> Finish`;
                 }
-                // Деактивація елементів для завершеного проекту
+
                 addTaskButton.disabled = isChecked;
                 startTimerButton.disabled = isChecked;
                 stopTimerButton.disabled = isChecked;
@@ -219,7 +210,7 @@ function initializeProject({ projectElement, projectId, totalTime, isCompleted }
             }
         } catch (error) {
             alert(error.message);
-            markCompletedCheckbox.checked = !isChecked; // Повернути стан
+            markCompletedCheckbox.checked = !isChecked; 
         }
     });
     
@@ -268,7 +259,6 @@ function initializeProject({ projectElement, projectId, totalTime, isCompleted }
     });
 }
 
-// Форматування часу
 function formatTime(seconds) {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);

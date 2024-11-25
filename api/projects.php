@@ -51,7 +51,6 @@ if ($method === 'GET') {
     $isCompleted = $data['isCompleted'] ?? null;
 
     if ($projectId && $totalTime !== null) {
-        // Оновлення часу проекту
         try {
             $pdo = getConnection();
             $stmt = $pdo->prepare("UPDATE projects SET TotalTime = :totalTime WHERE ProjectID = :projectId AND UserId = :userId");
@@ -64,7 +63,6 @@ if ($method === 'GET') {
             echo json_encode(['error' => $e->getMessage()]);
         }
     } elseif ($projectId !== null && $isCompleted !== null) {
-        // Оновлення статусу завершення проекту
         try {
             $pdo = getConnection();
             $stmt = $pdo->prepare("UPDATE projects SET IsCompleted = :isCompleted WHERE ProjectID = :projectId");
@@ -84,7 +82,6 @@ if ($method === 'GET') {
         echo json_encode(['error' => 'Invalid input data']);
     }
 } elseif ($method === 'DELETE') {
-    // Видалення проекту
     $data = json_decode(file_get_contents("php://input"), true);
     $projectId = $data['projectId'] ?? null;
     $userId = $data['userId'] ?? null;
